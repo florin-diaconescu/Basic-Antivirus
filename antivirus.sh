@@ -1,7 +1,7 @@
 #!/bin/bash
 
 display_usage(){
-	echo "Usage: $0 [file_to_check]"
+	echo "Usage: $0 [file/director_to_check]"
 }
 
 if [ $# -le 0 ]
@@ -16,12 +16,13 @@ then
 	exit 1
 fi
 
-make
+make &> /dev/null
 
 SPEED=1
 DELAY=1
 LOSS=0
 CORRUPT=0
+SCAN_FILE=scan_file
 
 {
 	killall link
@@ -35,3 +36,6 @@ sleep 1
 sleep 1
 
 ./client $1
+
+rm $SCAN_FILE
+make clean &> /dev/null
